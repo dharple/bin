@@ -2,3 +2,5 @@
 #
 # gitr done
 #
+
+find -type d -name .git
