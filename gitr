@@ -3,4 +3,16 @@
 # gitr done
 #
 
-find -type d -name .git
+BASE=$(pwd)
+for GITDIR in $(find -type d -name .git -not -path '*/vendor/*') ; do
+	REPODIR=$(dirname $GITDIR)
+	echo -------------------------------------
+	echo $REPODIR
+	echo -------------------------------------
+	echo
+
+	cd $BASE/$REPODIR
+	git $@
+
+	echo
+done
