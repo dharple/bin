@@ -38,7 +38,7 @@ while [ 1 ] ; do
 		*) ID="broken" ;;
 	esac
 
-	FILE=random-$ID.txt
+	FILE=random-$ID.yyz
 
 	if [ "$RECURSIVE" = "1" ] ; then
 		DIR=$(find -type d | shuf | head -1)

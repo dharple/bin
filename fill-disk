@@ -1,0 +1,47 @@
+#!/bin/bash -e
+#
+# Write a bunch of large files to a temp directory, to slowly fill up a disk.
+#
+# Pass any additional large files that you want to use on the command line.
+#
+# You can clean this up with `cd /tmp ; remove-random-files` or
+# `rm -rf /tmp/fill-disk-work-*`.
+#
+
+random_filename() {
+	test -x /usr/bin/uuid && /usr/bin/uuid -v 1 -m && exit
+	test -x /usr/bin/uuidgen && /usr/bin/uuidgen -r && exit
+	echo $(date) $RANDOM | sha256sum | cut -c1-24
+}
+
+WORK=/tmp/fill-disk-work-$(random_filename | sed -e's/-//' | cut -c1-16)
+mkdir -p $WORK
+
+BLOCKSIZE=4096
+SLEEP=5
+SOURCES="/dev/urandom /dev/zero /var/cache/apt/pkgcache.bin /var/cache/apt/srcpkgcache.bin $@"
+
+while [ 1 ] ; do
+	for SOURCE in $SOURCES ; do
+		if [ -b $SOURCE -o -c $SOURCE -o -f $SOURCE ] ; then
+			FILE=random-$(random_filename).yyz
+			COUNT=$RANDOM
+			SKIP=$(($RANDOM % 256))
+			echo copying $COUNT $BLOCKSIZE byte blocks from $SOURCE to $FILE after skipping $SKIP blocks
+
+			dd if=$SOURCE of=$WORK/$FILE bs=$BLOCKSIZE count=$COUNT skip=$SKIP
+			sleep $SLEEP
+		fi
+
+		if [ -f $WORK/stop ] ; then
+			rm $WORK/stop
+			exit
+		fi
+
+	done
+
+	echo
+	df -h
+	echo
+done
+

@@ -2,14 +2,20 @@
 #
 # Keeps removing random files until you tell it to stop.
 #
+# Pass `--fast` to make the script run faster.
+#
 # This will remove *any* file in the current directory of below that matches
-# 'random-*.txt'.  Use with caution.
+# 'random-*.yyz'.  Use with caution.
 #
 
 MAXSLEEP=5 # seconds
+FAST=0
+if [ -n "$1" -a "$1" = "--fast" ] ; then
+	FAST=1
+fi
 
 while [ 1 ] ; do
-	FILE=$(find -type f -name 'random-*.txt' | shuf | head -1)
+	FILE=$(find -type f -name 'random-*.yyz' | shuf | head -1)
 
 	if [ -z "$FILE" ] ; then
 		echo nothing to remove
@@ -24,6 +30,11 @@ while [ 1 ] ; do
 		rm "$FILE"
 	fi
 
-	sleep $(($RANDOM % $MAXSLEEP))
+	if [ "$FAST" = "0" ] ; then
+		sleep $(($RANDOM % $MAXSLEEP))
+	else
+		sleep 0.1
+	fi
+
 done
 
