@@ -8,13 +8,13 @@ Excerpts from my personal bin directory.
 
 ### disk utilities
 
-`create-random-files` - Creates random files at random intervals until terminated.
+`disk-create-random-files` - Creates random files at random intervals until terminated.
 
-`fill-disk` - Slowly fill up a disk.
+`disk-fill` - Slowly fill up a disk.
 
-`remove-random-files` - Removes random files at random intervals until terminated.
+`disk-remove-random-files` - Removes random files at random intervals until terminated.
 
-`show-disk-write-buffer` - Shows global disk write and dirty buffers.
+`disk-show-write-buffer` - Shows global disk write and dirty buffers.
 
 ### git utilites
 
