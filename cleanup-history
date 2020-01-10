@@ -1,0 +1,32 @@
+#!/bin/sh -e
+#
+# Removes common history files.
+#
+
+MV_OPTIONS="v"
+if [ $(uname) = "FreeBSD" ] ; then
+	MV_OPTIONS="nv"
+fi
+
+DATESPEC=$(date +"%Y%m%d-%H%M")
+TRASH="/tmp/trash-${USER}-${DATESPEC}"
+
+CLEANUP_FILE="
+	${HOME}/.*_history
+	${HOME}/.lesshst
+	${HOME}/.recently-used.xbel
+	${HOME}/.viminfo
+"
+
+for i in $(echo ${CLEANUP_FILE}) ; do
+	echo "Cleaning up $i"
+	if [ ! -e $i ] ; then
+		continue
+	fi
+	mkdir -pv ${TRASH}`dirname $i`
+	mv -$MV_OPTIONS $i ${TRASH}$i
+done
+
+if [ -x /usr/bin/gio ] ; then
+	/usr/bin/gio trash $TRASH
+fi
