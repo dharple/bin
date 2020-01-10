@@ -1,0 +1,12 @@
+#!/bin/sh -e
+#
+# Runs `git gc` on both the local directory, and the repository, iff the
+# repository is a locally accessible directory.
+#
+# If a fix-perms script exists, run that, too.
+#
+
+git gc
+test -x ./fix-perms && ./fix-perms
+REMOTE=$(git config --get remote.origin.url)
+test -d "$REMOTE" && cd "$REMOTE" && git gc

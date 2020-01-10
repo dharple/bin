@@ -1,0 +1,29 @@
+#!/bin/bash -e
+#
+# Keeps removing random files until you tell it to stop.
+#
+# This will remove *any* file in the current directory of below that matches
+# 'random-*.txt'.  Use with caution.
+#
+
+MAXSLEEP=5 # seconds
+
+while [ 1 ] ; do
+	FILE=$(find -type f -name 'random-*.txt' | shuf | head -1)
+
+	if [ -z "$FILE" ] ; then
+		echo nothing to remove
+	else
+		if [ ! -f "$FILE" ] ; then
+			echo "something went wrong; found then lost $FILE"
+			exit 1
+		fi
+
+		date
+		echo removing $FILE
+		rm "$FILE"
+	fi
+
+	sleep $(($RANDOM % $MAXSLEEP))
+done
+

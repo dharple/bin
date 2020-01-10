@@ -1,0 +1,9 @@
+#!/bin/sh -e
+#
+# Removes any remote branches that have been removed on the remote repository.
+#
+# Runs git garbage collection.
+#
+
+git fetch --all --prune
+git gc
