@@ -3,6 +3,12 @@
 # gitr done
 #
 
+if [ "$1" = "composer" ] ; then
+	shift
+	composerr $@
+	exit
+fi
+
 BASE=$(pwd)
 for GITDIR in $(find -type d -name .git -not -path '*/vendor/*') ; do
 	REPODIR=$(dirname $GITDIR)
