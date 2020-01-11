@@ -1,13 +1,9 @@
 #!/bin/sh
 #
-# gitr done
+# Recursive git (and composer).
 #
-
-if [ "$1" = "composer" ] ; then
-	shift
-	composerr $@
-	exit
-fi
+# Run `gitr status` or `gitr composer info` for a non-destructive preview.
+#
 
 BASE=$(pwd)
 for GITDIR in $(find -type d -name .git -not -path '*/vendor/*') ; do
@@ -18,7 +14,20 @@ for GITDIR in $(find -type d -name .git -not -path '*/vendor/*') ; do
 	echo
 
 	cd $BASE/$REPODIR
-	git $@
+
+	if [ -f .git/skip-gitr ] ; then
+		echo "gitr disabled in this repo"
+		echo
+		continue
+	fi
+
+	if [ "$1" = "composer" ] ; then
+		if [ -f composer.json ] ; then
+			$@
+		fi
+	else
+		git $@
+	fi
 
 	echo
 done

@@ -4,6 +4,8 @@ Excerpts from my personal bin directory.
 
 `cleanup-cache` - Removes cache entries safely.
 
+`cleanup-dev-cruft` - Removes patch files and patch leftovers.
+
 `cleanup-history` - Removes history files.
 
 ### disk utilities
