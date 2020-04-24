@@ -24,4 +24,6 @@ Excerpts from my personal bin directory.
 
 `git cleanup` - Removes any branches that have been removed upstream; runs garbage collection.
 
+`git diff-list` - Shortcut to just show a list of files added, copied, modified, or removed.
+
 `git post-push` - Runs garbage collection, permission fix script, and remote garbage collection if the remote repo is local.

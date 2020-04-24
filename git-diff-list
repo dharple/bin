@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Show changed files for some other script to review
+#
+
+git diff --name-only --diff-filter=ACMR $@

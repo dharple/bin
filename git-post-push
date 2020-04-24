@@ -6,7 +6,14 @@
 # If a fix-perms script exists, run that, too.
 #
 
+sync
 git gc
-test -x ./fix-perms && ./fix-perms
+if [ -x ./fix-perms ] ; then
+	./fix-perms
+fi
+
 REMOTE=$(git config --get remote.origin.url)
-test -d "$REMOTE" && cd "$REMOTE" && git gc
+if [ -d "$REMOTE" ] ; then
+	cd "$REMOTE"
+	git gc
+fi
