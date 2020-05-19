@@ -28,6 +28,10 @@ Excerpts from my personal bin directory.
 
 `git post-push` - Runs garbage collection, permission fix script, and remote garbage collection if the remote repo is local.
 
+### php utilities
+
+`php-unserialize` - Simple script to unserialize and dump serialized data from PHP.
+
 ### wsl utilities
 
 `cleanup-ssh` - Cleans out SSH agent sockets and directories.  tmpreaper doesn't touch them.
