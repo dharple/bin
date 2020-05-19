@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Stupid, simple script to generate random PINs
+#
+
+if [ -n "$1" ] ; then
+	NUM=$1
+else
+	NUM=4
+fi
+
+apg -a 1 -M n -n 20 -m "$NUM" -x "$NUM"
