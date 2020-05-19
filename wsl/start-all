@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Starts basic services, and runs some cleanup.
+#
+
+/root/bin/cleanup-ssh
+
+/usr/sbin/service rsyslog start
+/usr/sbin/service redis-server start
+/usr/sbin/service mysql start
+/usr/sbin/service cron start
+
+# initialize /run/screen
+/usr/sbin/service screen-cleanup start
+
+# run anacron
+/usr/sbin/anacron -s -n
