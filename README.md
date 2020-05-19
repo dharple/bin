@@ -27,3 +27,11 @@ Excerpts from my personal bin directory.
 `git diff-list` - Shortcut to just show a list of files added, copied, modified, or removed.
 
 `git post-push` - Runs garbage collection, permission fix script, and remote garbage collection if the remote repo is local.
+
+### wsl utilities
+
+`cleanup-ssh` - Cleans out SSH agent sockets and directories.  tmpreaper doesn't touch them.
+
+`start-all` - Starts services and runs basic cleanup.
+
+`stop-all` - Stops services started by `start-all`.
