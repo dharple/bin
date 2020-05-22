@@ -4,8 +4,8 @@
 #
 # Pass any additional large files that you want to use on the command line.
 #
-# You can clean this up with `cd /tmp ; remove-random-files` or
-# `rm -rf /tmp/fill-disk-work-*`.
+# You can clean this up with `remove-random-files` or
+# `rm -rf fill-disk-work-*`.
 #
 
 random_filename() {
@@ -14,7 +14,7 @@ random_filename() {
 	echo $(date) $RANDOM | sha256sum | cut -c1-24
 }
 
-WORK=/tmp/fill-disk-work-$(random_filename | sed -e's/-//' | cut -c1-16)
+WORK=fill-disk-work-$(random_filename | sed -e's/-//' | cut -c1-16)
 mkdir -p $WORK
 
 BLOCKSIZE=4096

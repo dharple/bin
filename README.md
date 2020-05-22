@@ -12,7 +12,7 @@ Excerpts from my personal bin directory.
 
 `disk-create-random-files` - Creates random files at random intervals until terminated.
 
-`disk-fill` - Slowly fill up a disk.
+`disk-fill` - Slowly fill up a disk.  Writes files to the current directory.
 
 `disk-remove-random-files` - Removes random files at random intervals until terminated.
 
