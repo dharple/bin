@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Checks the cloudflare IPs to see if they've changed.
+# Checks the CloudFlare IPs to see if they've changed.
 #
 
 # This is current as of 2020-06-29.
@@ -8,5 +8,5 @@ INSTALLED=17d8995d8467b7ff166816f146d85ade3c789b29d37a49b51048786a611fcd75
 
 CURRENT=$(curl -s https://www.cloudflare.com/ips-v4 | sha256sum | cut -f 1 -d ' ')
 if [ "$INSTALLED" != "$CURRENT" ] ; then
-	echo NOTICE: Cloudflare IPs have changed
+	echo NOTICE: CloudFlare IPs have changed
 fi
