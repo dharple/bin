@@ -32,6 +32,10 @@ Excerpts from my personal bin directory.
 
 `generate-pin` - Generates random PINs
 
+`organize-camera-uploads` - Moves the contents of a Dropbox "Camera Uploads"
+			    directory into subdirectories based on year and
+                            month.
+
 ### php utilities
 
 `php-unserialize` - Simple script to unserialize and dump serialized data from PHP.
