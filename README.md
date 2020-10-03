@@ -32,6 +32,8 @@ Excerpts from my personal bin directory.
 
 `generate-pin` - Generates random PINs
 
+`mbox-splitter` - Splits an mbox file into individual files
+
 `organize-camera-uploads` - Moves the contents of a Dropbox "Camera Uploads"
 			    directory into subdirectories based on year and
                             month.

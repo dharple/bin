@@ -1,0 +1,49 @@
+#!/usr/bin/php
+<?php
+
+function usage()
+{
+    fprintf(STDERR, "Usage:\n\t%s FILE\n", $argv[0]);
+    exit(-1);
+}
+
+function writeOutput($file, $output)
+{
+    static $counter = 0;
+
+    $target = sprintf("%s.%04d", $file, ++$counter);
+    if (file_exists($target)) {
+        fprintf(STDERR, "cannot create %s: file already exists\n", $target);
+    }
+
+    file_put_contents($target, implode('', $output));
+}
+
+if ($argc === 1) {
+    usage();
+}
+
+$file = $argv[1];
+
+if (!file_exists($file)) {
+    usage();
+}
+
+$lines = file($file);
+
+$output = [];
+
+foreach ($lines as $line) {
+    if (preg_match('/^From /', $line) && !empty($output)) {
+        writeOutput($file, $output);
+        $output = [];
+    }
+
+    $output[] = $line;
+}
+
+if (!empty($output)) {
+    writeOutput($file, $output);
+}
+
+// vim:ai:cin:et:ts=4:sw=4:fo+=or
