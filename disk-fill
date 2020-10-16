@@ -19,7 +19,7 @@ mkdir -p $WORK
 
 BLOCKSIZE=4096
 SLEEP=5
-SOURCES="/dev/urandom /dev/zero /var/cache/apt/pkgcache.bin /var/cache/apt/srcpkgcache.bin $@"
+SOURCES="/dev/urandom /dev/zero /var/cache/apt/pkgcache.bin /var/cache/apt/srcpkgcache.bin /var/lib/clamav/daily.cld /var/lib/clamav/main.cvd /usr/share/sounds/sf2/FluidR3_GM.sf2 $@"
 
 while [ 1 ] ; do
 	for SOURCE in $SOURCES ; do
