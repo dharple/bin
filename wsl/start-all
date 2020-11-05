@@ -24,3 +24,8 @@ if [ -x /usr/sbin/anacron ] ; then
 else
 	echo anacron is not enabled
 fi
+
+# seed /dev/urandom
+if [ -x /usr/bin/pollinate ] ; then
+	/usr/bin/pollinate
+fi
