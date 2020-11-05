@@ -6,7 +6,7 @@
 #
 
 BASE=$(pwd)
-for GITDIR in $(find -type d -name .git -not -path '*/vendor/*') ; do
+for GITDIR in $(find -type d -name .git -not -path '*/vendor/*' -not -path '*/.symfony/*') ; do
 	REPODIR=$(dirname $GITDIR)
 	echo -------------------------------------
 	echo $REPODIR
