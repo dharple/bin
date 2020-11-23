@@ -9,7 +9,11 @@ if [ $(uname) = "FreeBSD" ] ; then
 fi
 
 DATESPEC=$(date +"%Y%m%d-%H%M")
-TRASH="/tmp/trash-${USER}-${DATESPEC}"
+if [ -x /usr/bin/gio ] ; then
+	TRASH="$HOME/.local/share/tmp/trash-${USER}-${DATESPEC}"
+else
+	TRASH="/tmp/trash-${USER}-${DATESPEC}"
+fi
 
 CLEANUP_FILE="
 	${HOME}/.*_history
