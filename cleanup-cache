@@ -28,7 +28,7 @@ for i in $(echo ${CLEANUP_DIR}) ; do
 		continue
 	fi
 	find $i -type d -exec mkdir -pv ${TRASH}\{\} \;
-	find $i -type f -mmin $MINTIME -exec mv -$MV_OPTIONS \{\} ${TRASH}\{\} \;
+	find $i -type f -mmin +$MINTIME -exec mv -$MV_OPTIONS \{\} ${TRASH}\{\} \;
 
 	COUNT=1
 	while [ -n "$(find $i -mindepth 1 -type d -empty | head -1)" ] ; do
