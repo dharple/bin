@@ -20,6 +20,7 @@ MINTIME=15 # minutes
 
 CLEANUP_DIR="
 	${HOME}/.cache
+	${HOME}/.composer/cache
 "
 
 for i in $(echo ${CLEANUP_DIR}) ; do
