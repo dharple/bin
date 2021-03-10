@@ -9,25 +9,25 @@ if [ -x /usr/bin/gio ] ; then
 else
 	TRASH="/tmp/trash-${USER}-${DATESPEC}"
 fi
-mkdir -p $TRASH
+mkdir -p "$TRASH"
 
 # move_to_trash file dir
 move_to_trash() {
 	if [ -n "$1" -a -n "$2" -a -f "$1" -a -d "$2" ] ; then
-		DIR=$(dirname $2/$1)
+		DIR=$(dirname "$2"/"$1")
 		if [ ! -d "$DIR" ] ; then
-			mkdir -pv $DIR
+			mkdir -pv "$DIR"
 		fi
-		mv -iv $1 $DIR/
+		mv -iv "$1" "$DIR"/
 	fi
 }
 
 DIR=$(pwd)
 echo "Cleaning up $DIR"
-for FILE in $(find $DIR -type f -a \( -name '*.rej' -o -name '*.orig' -o -name '*.patch' \)) ; do
-	 move_to_trash $FILE $TRASH
+for FILE in $(find "$DIR" -type f -a \( -name '*.rej' -o -name '*.orig' -o -name '*.patch' \)) ; do
+	 move_to_trash "$FILE" "$TRASH"
 done
 
 if [ -x /usr/bin/gio ] ; then
-	/usr/bin/gio trash $TRASH
+	/usr/bin/gio trash "$TRASH"
 fi

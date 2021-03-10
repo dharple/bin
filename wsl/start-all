@@ -3,8 +3,8 @@
 # Starts basic services, and runs some cleanup.
 #
 
-SCRIPT=$(dirname $0)/cleanup-ssh
-if [ -x $SCRIPT ] ; then
+SCRIPT=$(dirname "$0")/cleanup-ssh
+if [ -x "$SCRIPT" ] ; then
 	$SCRIPT
 fi
 

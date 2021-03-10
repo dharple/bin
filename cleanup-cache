@@ -23,22 +23,22 @@ CLEANUP_DIR="
 	${HOME}/.composer/cache
 "
 
-for i in $(echo ${CLEANUP_DIR}) ; do
+for i in $(echo "${CLEANUP_DIR}") ; do
 	echo "Cleaning up $i"
-	if [ ! -e $i ] ; then
+	if [ ! -e "$i" ] ; then
 		continue
 	fi
-	find $i -type d -exec mkdir -pv ${TRASH}\{\} \;
-	find $i -type f -mmin +$MINTIME -exec mv -$MV_OPTIONS \{\} ${TRASH}\{\} \;
+	find "$i" -type d -exec mkdir -pv "${TRASH}"\{\} \;
+	find "$i" -type f -mmin +$MINTIME -exec mv -$MV_OPTIONS \{\} "${TRASH}"\{\} \;
 
 	COUNT=1
-	while [ -n "$(find $i -mindepth 1 -type d -empty | head -1)" ] ; do
+	while [ -n "$(find "$i" -mindepth 1 -type d -empty | head -1)" ] ; do
 		echo "cleaning empty directories (round $COUNT)"
-		find $i -mindepth 1 -type d -empty -exec rmdir '{}' ';' || true
+		find "$i" -mindepth 1 -type d -empty -exec rmdir '{}' ';' || true
 		COUNT=$(($COUNT+1))
 	done
 done
 
 if [ -x /usr/bin/gio ] ; then
-	/usr/bin/gio trash $TRASH
+	/usr/bin/gio trash "$TRASH"
 fi

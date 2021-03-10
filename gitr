@@ -7,13 +7,13 @@
 
 BASE=$(pwd)
 for GITDIR in $(find -type d -name .git -not -path '*/vendor/*' -not -path '*/.symfony/*') ; do
-	REPODIR=$(dirname $GITDIR)
+	REPODIR=$(dirname "$GITDIR")
 	echo -------------------------------------
-	echo $REPODIR
+	echo "$REPODIR"
 	echo -------------------------------------
 	echo
 
-	cd $BASE/$REPODIR
+	cd "$BASE"/"$REPODIR" || exit
 
 	if [ -f .git/skip-gitr ] ; then
 		echo "gitr disabled in this repo"

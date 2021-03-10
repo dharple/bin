@@ -22,15 +22,15 @@ CLEANUP_FILE="
 	${HOME}/.viminfo
 "
 
-for i in $(echo ${CLEANUP_FILE}) ; do
+for i in $(echo "${CLEANUP_FILE}") ; do
 	echo "Cleaning up $i"
-	if [ ! -e $i ] ; then
+	if [ ! -e "$i" ] ; then
 		continue
 	fi
-	mkdir -pv ${TRASH}`dirname $i`
-	mv -$MV_OPTIONS $i ${TRASH}$i
+	mkdir -pv "${TRASH}"$(dirname "$i")
+	mv -$MV_OPTIONS "$i" "${TRASH}""$i"
 done
 
 if [ -x /usr/bin/gio ] ; then
-	/usr/bin/gio trash $TRASH
+	/usr/bin/gio trash "$TRASH"
 fi

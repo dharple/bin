@@ -8,10 +8,10 @@ ERROR=$(php -r 'echo E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_RECO
 
 FILELIST=$(find \( -name '*.php' -o -name '*.inc' \) -not -path '*/vendor/*' -not -path '*/tests/*' -not -path '*.git')
 
-FILELISTCOUNT=`echo $FILELIST | wc -w`
+FILELISTCOUNT=$(echo "$FILELIST" | wc -w)
 
 echo "Checking $FILELISTCOUNT files"
 for i in $FILELIST ; do
-	php -d display_errors=on -d error_reporting=$ERROR -l $i > /dev/null
+	php -d display_errors=on -d error_reporting="$ERROR" -l "$i" > /dev/null
 done
 
