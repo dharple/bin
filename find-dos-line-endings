@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# Looks for a DOS CRLF in code.
+#
+# There's at least one hit in the composer package squizlabs/php_codesniffer.
+#
+
+FILELIST=$(find . -type f -regextype "posix-extended" -regex '.*[.](c|h|js|php|sh)$' -not -path "*/node_modules/*" -not -path '*/vendor/*' -not -path '*/var/cache/*')
+
+FILELISTCOUNT=$(echo $FILELIST | wc -w)
+
+echo "Checking $FILELISTCOUNT files"
+for i in $FILELIST ; do
+	RES=$(hexdump "$i" | cut -f 2- -d " " | grep -cE "( 0a0d )|(0a 0d)")
+	if [ "$RES" -gt 0 ] ; then
+		echo "----------------------------------------------------"
+		echo "DOS style newlines found in $i"
+	fi
+done

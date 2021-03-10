@@ -40,7 +40,11 @@ Excerpts from my personal bin directory.
 
 ### php utilities
 
+`check-php-files` - Runs a lint checker on all .php files, recursively.
+
 `php-unserialize` - Simple script to unserialize and dump serialized data from PHP.
+
+`find-dos-line-endings` - Seeks out files with DOS (CRLF) line-endings.
 
 ### wsl utilities
 
