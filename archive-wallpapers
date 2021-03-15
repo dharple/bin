@@ -1,0 +1,31 @@
+#!/usr/bin/bash -e
+#
+# Pulls backgrounds from /usr/share/backgrounds and writes them to the current
+# directory, separated by package hierarchy.
+#
+
+DPKG=$(command -v dpkg)
+if [ -z "$DPKG" ] ; then
+	echo "This needs to run on a Debian system"
+	exit 1
+fi
+
+BASE=/usr/share/backgrounds
+
+find $BASE -maxdepth 1 -mindepth 1 -type f | while read FILENAME ; do
+	FILEONLY=$(basename $FILENAME)
+	PACKAGE=$(dpkg -S "$FILENAME" | cut -f 1 -d :)
+
+	if [ -z "$PACKAGE" ] ; then
+		echo "Could not find a package for: $FILENAME"
+		continue
+	fi
+
+	TARGET=$(echo $PACKAGE | tr '-' '/')
+
+	mkdir -p "$TARGET"
+	echo "cp $FILENAME $TARGET/"
+	cp --archive --reflink=auto "$FILENAME" "$TARGET"/"$FILEONLY"
+done
+
+echo done

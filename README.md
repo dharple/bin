@@ -30,6 +30,10 @@ Excerpts from my personal bin directory.
 
 ### misc utilities
 
+`archive-wallpapers` - Copy the wallpapers installed on a Debian/Ubuntu/Mint/etc
+		       system to subdirectories under the current path, broken
+                       up by path.
+
 `generate-pin` - Generates random PINs
 
 `mbox-splitter` - Splits an mbox file into individual files
