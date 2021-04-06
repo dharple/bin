@@ -1,25 +1,39 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Recursive git (and composer).
 #
 # Run `gitr status` or `gitr composer info` for a non-destructive preview.
 #
 
+function banner()
+{
+	echo -------------------------------------
+	echo "$1"
+	echo -------------------------------------
+	echo
+}
+
+if [ -z "$VERBOSE" ] ; then
+	VERBOSE=0
+fi
+
 BASE=$(pwd)
 for GITDIR in $(find -type d -name .git -not -path '*/vendor/*' -not -path '*/.symfony/*') ; do
 	REPODIR=$(dirname "$GITDIR")
-	echo -------------------------------------
-	echo "$REPODIR"
-	echo -------------------------------------
-	echo
 
 	cd "$BASE"/"$REPODIR" || exit
 
 	if [ -f .git/skip-gitr ] ; then
-		echo "gitr disabled in this repo"
-		echo
+		if [ "$VERBOSE" -gt 0 ] ; then
+			banner "$REPODIR"
+			echo "gitr disabled in this repo"
+			echo
+		fi
+
 		continue
 	fi
+
+	banner "$REPODIR"
 
 	if [ "$1" = "composer" -o "$1" = "symfony" ] ; then
 		if [ -f composer.json ] ; then
