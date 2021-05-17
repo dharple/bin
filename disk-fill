@@ -11,7 +11,7 @@
 random_filename() {
 	test -x /usr/bin/uuid && /usr/bin/uuid -v 1 -m && exit
 	test -x /usr/bin/uuidgen && /usr/bin/uuidgen -r && exit
-	echo $(date) $RANDOM | sha256sum | cut -c1-24
+	echo "$(date)" $RANDOM | sha256sum | cut -c1-24
 }
 
 WORK=fill-disk-work-$(random_filename | sed -e's/-//' | cut -c1-16)
@@ -21,15 +21,18 @@ BLOCKSIZE=4096
 SLEEP=5
 SOURCES="/dev/urandom /dev/zero /var/cache/apt/pkgcache.bin /var/cache/apt/srcpkgcache.bin /var/lib/clamav/daily.cld /var/lib/clamav/main.cvd /usr/share/sounds/sf2/FluidR3_GM.sf2 $@"
 
-while [ 1 ] ; do
+while true ; do
 	for SOURCE in $SOURCES ; do
 		if [ -b "$SOURCE" -o -c "$SOURCE" -o -f "$SOURCE" ] ; then
+			SUB=$(random_filename | cut -c1-2)
+			mkdir -p "$WORK"/"$SUB"
+
 			FILE=random-$(random_filename).yyz
 			COUNT=$RANDOM
-			SKIP=$(($RANDOM % 256))
-			echo copying $COUNT $BLOCKSIZE byte blocks from "$SOURCE" to "$FILE" after skipping $SKIP blocks
+			SKIP=$((RANDOM % 256))
+			echo copying $COUNT $BLOCKSIZE byte blocks from "$SOURCE" to "$SUB"/"$FILE" after skipping $SKIP blocks
 
-			dd if="$SOURCE" of="$WORK"/"$FILE" bs=$BLOCKSIZE count=$COUNT skip=$SKIP
+			dd if="$SOURCE" of="$WORK"/"$SUB"/"$FILE" bs=$BLOCKSIZE count=$COUNT skip=$SKIP
 			sleep $SLEEP
 		fi
 
@@ -44,4 +47,3 @@ while [ 1 ] ; do
 	df -h
 	echo
 done
-
