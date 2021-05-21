@@ -18,7 +18,7 @@ if [ -z "$VERBOSE" ] ; then
 fi
 
 BASE=$(pwd)
-for GITDIR in $(find . -type d -name .git -not -path '*/vendor/*' -not -path '*/.symfony/*') ; do
+for GITDIR in $(find . -maxdepth 3 -type d -name .git -not -path '*/vendor/*' -not -path '*/.symfony/*') ; do
 	REPODIR=$(dirname "$GITDIR")
 
 	cd "$BASE"/"$REPODIR" || exit
