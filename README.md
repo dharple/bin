@@ -28,6 +28,8 @@ Excerpts from my personal bin directory.
 
 `git post-push` - Runs garbage collection, permission fix script, and remote garbage collection if the remote repo is local.
 
+`git update` - Literally just `git pull ; git status`
+
 ### misc utilities
 
 `archive-wallpapers` - Copy the wallpapers installed on a Debian/Ubuntu/Mint/etc

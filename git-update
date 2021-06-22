@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Combine `git pull` and `git status` into a single command, primarily for use
+# with `gitr`.
+#
+
+git pull
+git status
