@@ -14,6 +14,8 @@ Excerpts from my personal bin directory.
 
 `disk-fill` - Slowly fill up a disk.  Writes files to the current directory.
 
+`disk-metadata-fill` - Slowly fill up a disk's metadata/inode tables.  Writes files to the current directory.
+
 `disk-remove-random-files` - Removes random files at random intervals until terminated.
 
 `disk-show-write-buffer` - Shows global disk write and dirty buffers.

@@ -4,7 +4,7 @@
 #
 # Pass any additional large files that you want to use on the command line.
 #
-# You can clean this up with `remove-random-files` or
+# You can clean this up with `disk-remove-random-files` or
 # `rm -rf fill-disk-work-*`.
 #
 
@@ -42,6 +42,12 @@ while true ; do
 		fi
 
 	done
+
+	echo
+	echo "syncing..."
+	sync
+	echo "done..."
+	sleep $SLEEP
 
 	echo
 	df -h
