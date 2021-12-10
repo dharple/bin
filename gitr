@@ -39,6 +39,10 @@ for GITDIR in $(find . -maxdepth 3 -type d -name .git -not -path '*/vendor/*' -n
 		if [ -f composer.json ] ; then
 			"$@"
 		fi
+	elif [ "$1" = "npm" ] ; then
+		if [ -f package.json ] ; then
+			"$@"
+		fi
 	else
 		git "$@"
 	fi
