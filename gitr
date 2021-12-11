@@ -17,13 +17,64 @@ if [ -z "$VERBOSE" ] ; then
 	VERBOSE=0
 fi
 
+SKIPFILE=.git/skip-gitr
+
 BASE=$(pwd)
 for GITDIR in $(find . -maxdepth 3 -type d -name .git -not -path '*/vendor/*' -not -path '*/.symfony/*') ; do
 	REPODIR=$(dirname "$GITDIR")
 
 	cd "$BASE"/"$REPODIR" || exit
 
-	if [ -f .git/skip-gitr ] ; then
+
+	if [ "$1" = "skip" ] ; then
+		banner "$REPODIR"
+
+		case "$2" in
+			disable)
+				if [ -f $SKIPFILE ] ; then
+					rm -f $SKIPFILE
+					echo "gitr skip is now disabled"
+				else
+					echo "gitr skip is already disabled"
+				fi
+			;;
+
+			enable)
+				if [ ! -f $SKIPFILE ] ; then
+					touch $SKIPFILE
+					echo "gitr skip is now enabled"
+				else
+					echo "gitr skip is already enabled"
+				fi
+
+			;;
+
+			status)
+				if [ -f $SKIPFILE ] ; then
+					if [ "$VERBOSE" -gt 0 ] ; then
+						echo "gitr skip is enabled in this repo"
+						echo -n "... "
+					fi
+					echo "this repo is ignored by gitr"
+				else
+					if [ "$VERBOSE" -gt 0 ] ; then
+						echo "gitr skip is disabled in this repo"
+					fi
+				fi
+			;;
+
+			*)
+				echo "usage:"
+				echo "	gitr skip (disable|enable|status)"
+			;;
+		esac
+
+		echo
+
+		continue
+	fi
+
+	if [ -f $SKIPFILE ] ; then
 		if [ "$VERBOSE" -gt 0 ] ; then
 			banner "$REPODIR"
 			echo "gitr disabled in this repo"
