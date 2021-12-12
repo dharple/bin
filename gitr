@@ -20,7 +20,7 @@ fi
 SKIPFILE=.git/skip-gitr
 
 BASE=$(pwd)
-for GITDIR in $(find . -maxdepth 3 -type d -name .git -not -path '*/vendor/*' -not -path '*/.symfony/*') ; do
+for GITDIR in $(find . -maxdepth 3 -type d -name .git -not -path '*/vendor/*' -not -path '*/.symfony/*' | sort) ; do
 	REPODIR=$(dirname "$GITDIR")
 
 	cd "$BASE"/"$REPODIR" || exit
