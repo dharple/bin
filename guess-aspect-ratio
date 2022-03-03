@@ -2,7 +2,7 @@
 <?php
 
 if ($argc < 2) {
-	sprintf(STDERR, "Please specify a file to review\n");
+	sprintf(STDERR, "Please specify one or more files to review\n");
     exit(1);
 }
 
@@ -26,40 +26,45 @@ $commonRatios = [
     [ 'height' => '39', 'width' => '18' ],
 ];
 
-$file       = $argv[1];
-$fileSize   = getimagesize($file);
-if ($fileSize === false) {
-	sprintf(STDERR, "Could not read file size\n");
-    exit(1);
-}
+array_shift($argv);
 
-$fileHeight = $fileSize[0];
-$fileWidth  = $fileSize[1];
-
-foreach ($commonRatios as $reviewRatio) {
-
-    $compareHeight = $fileHeight / $reviewRatio['height'];
-    $compareWidth  = $fileWidth  / $reviewRatio['width'];
-
-    if (abs($compareHeight - $compareWidth) < 2.0) {
-        printf("%s: %dx%d\n", $file, $reviewRatio['height'], $reviewRatio['width']);
-        exit(0);
+foreach ($argv as $file) {
+    $fileSize   = getimagesize($file);
+    if ($fileSize === false) {
+        sprintf(STDERR, "%s: could not read file size\n", $file);
+        printf("%s: unknown\n", $file);
+        continue;
     }
 
-    $inverseRatio = [
-        'width'  => $reviewRatio['height'],
-        'height' => $reviewRatio['width'],
-    ];
+    $fileHeight = $fileSize[0];
+    $fileWidth  = $fileSize[1];
 
-    $compareHeight = $fileHeight / $inverseRatio['height'];
-    $compareWidth  = $fileWidth  / $inverseRatio['width'];
+    foreach ($commonRatios as $reviewRatio) {
+        $compareHeight = $fileHeight / $reviewRatio['height'];
+        $compareWidth  = $fileWidth  / $reviewRatio['width'];
+        $compare = $compareHeight / $compareWidth;
 
-    if (abs($compareHeight - $compareWidth) < 2.0) {
-        printf("%s: %dx%d\n", $file, $inverseRatio['height'], $inverseRatio['width']);
-        exit(0);
+        if ($compare > 0.99 && $compare < 1.01) {
+            printf("%s: %dx%d\n", $file, $reviewRatio['height'], $reviewRatio['width']);
+            continue 2;
+        }
+
+        $inverseRatio = [
+            'width'  => $reviewRatio['height'],
+            'height' => $reviewRatio['width'],
+        ];
+
+        $compareHeight = $fileHeight / $inverseRatio['height'];
+        $compareWidth  = $fileWidth  / $inverseRatio['width'];
+        $compare = $compareHeight / $compareWidth;
+
+        if ($compare > 0.99 && $compare < 1.01) {
+            printf("%s: %dx%d\n", $file, $inverseRatio['height'], $inverseRatio['width']);
+            continue 2;
+        }
     }
-}
 
-exit(1);
+    printf("%s: unknown\n", $file);
+}
 
 // vim:ai:cin:et:ts=4:sw=4:fo+=or
