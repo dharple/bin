@@ -2,7 +2,7 @@
 <?php
 
 if ($argc < 2) {
-	sprintf(STDERR, "Please specify one or more files to review\n");
+	fprintf(STDERR, "Please specify one or more files to review\n");
     exit(1);
 }
 
@@ -29,9 +29,9 @@ $commonRatios = [
 array_shift($argv);
 
 foreach ($argv as $file) {
-    $fileSize   = getimagesize($file);
+    $fileSize = getimagesize($file);
     if ($fileSize === false) {
-        sprintf(STDERR, "%s: could not read file size\n", $file);
+        fprintf(STDERR, "%s: could not read file size\n", $file);
         printf("%s: unknown\n", $file);
         continue;
     }
