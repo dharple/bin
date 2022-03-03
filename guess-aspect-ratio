@@ -1,47 +1,65 @@
-#!/bin/bash
+#!/usr/bin/env php
+<?php
 
-if [ -z "$1" ] ; then
-	echo "Please specify a file to review"
-	exit 1
-fi
+if ($argc < 2) {
+	sprintf(STDERR, "Please specify a file to review\n");
+    exit(1);
+}
 
-FILE="$1"
+$commonRatios = [
+    // classics
 
-COMMON_RATIOS="1x1 16x9 16x10 4x3 3x2 16x5 39x18 14x9 5x4 11x8 19x16 21x9"
+    [ 'height' => '4',  'width' => '3'  ],
+    [ 'height' => '16', 'width' => '9'  ],
+    [ 'height' => '16', 'width' => '10' ],
 
-RATIO=$(identify "$FILE" | cut -f 3 -d ' ')
+    // others
 
-X=$(identify -format "%w" "$FILE")
-Y=$(identify -format "%h" "$FILE")
+    [ 'height' => '1',  'width' => '1'  ],
+    [ 'height' => '3',  'width' => '2'  ],
+    [ 'height' => '5',  'width' => '4'  ],
+    [ 'height' => '11', 'width' => '8'  ],
+    [ 'height' => '14', 'width' => '9'  ],
+    [ 'height' => '16', 'width' => '5'  ],
+    [ 'height' => '19', 'width' => '16' ],
+    [ 'height' => '21', 'width' => '9'  ],
+    [ 'height' => '39', 'width' => '18' ],
+];
 
-if [ "$X" -le "0" -o "$Y" -le "0" ] ; then
-	exit 1
-fi
+$file       = $argv[1];
+$fileSize   = getimagesize($file);
+if ($fileSize === false) {
+	sprintf(STDERR, "Could not read file size\n");
+    exit(1);
+}
 
-for REVIEW_RATIO in $COMMON_RATIOS ; do
-	CHECKX=$(echo $REVIEW_RATIO | cut -f 1 -d x)
-	CHECKY=$(echo $REVIEW_RATIO | cut -f 2 -d x)
+$fileHeight = $fileSize[0];
+$fileWidth  = $fileSize[1];
 
-	COMPAREX=$(( X / CHECKX ))
-	COMPAREY=$(( Y / CHECKY ))
+foreach ($commonRatios as $reviewRatio) {
 
-	if [ "$COMPAREX" = "$COMPAREY" ] ; then
-		echo "$FILE": "$REVIEW_RATIO"
-		exit 0
-	fi
+    $compareHeight = $fileHeight / $reviewRatio['height'];
+    $compareWidth  = $fileWidth  / $reviewRatio['width'];
 
-	# portrait ?
+    if (abs($compareHeight - $compareWidth) < 2.0) {
+        printf("%s: %dx%d\n", $file, $reviewRatio['height'], $reviewRatio['width']);
+        exit(0);
+    }
 
-	COMPAREX=$(( X / CHECKY ))
-	COMPAREY=$(( Y / CHECKX ))
+    $inverseRatio = [
+        'width'  => $reviewRatio['height'],
+        'height' => $reviewRatio['width'],
+    ];
 
-	if [ "$COMPAREX" = "$COMPAREY" ] ; then
-		echo "$FILE": "$CHECKY"x"$CHECKX"
-		exit 0
-	fi
+    $compareHeight = $fileHeight / $inverseRatio['height'];
+    $compareWidth  = $fileWidth  / $inverseRatio['width'];
 
+    if (abs($compareHeight - $compareWidth) < 2.0) {
+        printf("%s: %dx%d\n", $file, $inverseRatio['height'], $inverseRatio['width']);
+        exit(0);
+    }
+}
 
+exit(1);
 
-done
-
-exit 1
+// vim:ai:cin:et:ts=4:sw=4:fo+=or
