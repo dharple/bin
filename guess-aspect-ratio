@@ -1,0 +1,47 @@
+#!/bin/bash
+
+if [ -z "$1" ] ; then
+	echo "Please specify a file to review"
+	exit 1
+fi
+
+FILE="$1"
+
+COMMON_RATIOS="1x1 16x9 16x10 4x3 3x2 16x5 39x18 14x9 5x4 11x8 19x16 21x9"
+
+RATIO=$(identify "$FILE" | cut -f 3 -d ' ')
+
+X=$(echo $RATIO | cut -f 1 -d x)
+Y=$(echo $RATIO | cut -f 2 -d x)
+
+if [ "$X" -le "0" -o "$Y" -le "0" ] ; then
+	exit 1
+fi
+
+for REVIEW_RATIO in $COMMON_RATIOS ; do
+	CHECKX=$(echo $REVIEW_RATIO | cut -f 1 -d x)
+	CHECKY=$(echo $REVIEW_RATIO | cut -f 2 -d x)
+
+	COMPAREX=$(( X / CHECKX ))
+	COMPAREY=$(( Y / CHECKY ))
+
+	if [ "$COMPAREX" = "$COMPAREY" ] ; then
+		echo "$FILE": "$REVIEW_RATIO"
+		exit 0
+	fi
+
+	# portrait ?
+
+	COMPAREX=$(( X / CHECKY ))
+	COMPAREY=$(( Y / CHECKX ))
+
+	if [ "$COMPAREX" = "$COMPAREY" ] ; then
+		echo "$FILE": "$CHECKY"x"$CHECKX"
+		exit 0
+	fi
+
+
+
+done
+
+exit 1

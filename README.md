@@ -40,6 +40,8 @@ Excerpts from my personal bin directory.
 
 `generate-pin` - Generates random PINs
 
+`guess-aspect-ratio` - Brute force aspect ratio guesser
+
 `mbox-splitter` - Splits an mbox file into individual files
 
 `organize-camera-uploads` - Moves the contents of a Dropbox "Camera Uploads"
