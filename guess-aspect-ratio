@@ -11,8 +11,8 @@ COMMON_RATIOS="1x1 16x9 16x10 4x3 3x2 16x5 39x18 14x9 5x4 11x8 19x16 21x9"
 
 RATIO=$(identify "$FILE" | cut -f 3 -d ' ')
 
-X=$(echo $RATIO | cut -f 1 -d x)
-Y=$(echo $RATIO | cut -f 2 -d x)
+X=$(identify -format "%w" "$FILE")
+Y=$(identify -format "%h" "$FILE")
 
 if [ "$X" -le "0" -o "$Y" -le "0" ] ; then
 	exit 1
