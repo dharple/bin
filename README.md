@@ -1,28 +1,6 @@
-Excerpts from my personal bin directory.
+Random, possibly useful scripts.
 
-### cleanup utilities
-
-`cleanup-cache` - Removes cache entries safely.
-
-`cleanup-dev-cruft` - Removes patch files and patch leftovers.
-
-`cleanup-history` - Removes history files.
-
-### disk utilities
-
-`disk-create-random-files` - Creates random files at random intervals until terminated.
-
-`disk-fill` - Slowly fill up a disk.  Writes files to the current directory.
-
-`disk-metadata-fill` - Slowly fill up a disk's metadata/inode tables.  Writes files to the current directory.
-
-`disk-remove-random-files` - Removes random files at random intervals until terminated.
-
-`disk-show-write-buffer` - Shows global disk write and dirty buffers.
-
-### git utilites
-
-`gitr` - Run git recursively across subdirectories.  Ignores `vendor/` directories.
+### git utilities
 
 `git cleanup` - Removes any branches that have been removed upstream; runs garbage collection.
 
@@ -30,38 +8,32 @@ Excerpts from my personal bin directory.
 
 `git post-push` - Runs garbage collection, permission fix script, and remote garbage collection if the remote repo is local.
 
-`git update` - Literally just `git pull ; git status`
+`gitr` - Run git recursively across subdirectories.  Ignores `vendor/` directories.
 
-### misc utilities
+`git update` - Literally just `git pull ; git status`.
 
-`archive-wallpapers` - Copy the wallpapers installed on a Debian/Ubuntu/Mint/etc
-		       system to subdirectories under the current path, broken
-                       up by path.
+### image utilities
 
-`generate-pin` - Generates random PINs
+`archive-wallpapers` - Copy the wallpapers installed on a Debian/Ubuntu/Mint/etc system to subdirectories under the current path, broken up by release.
 
-`guess-aspect-ratio` - Brute force aspect ratio guesser
+`guess-aspect-ratio` - Brute force aspect ratio guesser.
 
-`mbox-splitter` - Splits an mbox file into individual files
-
-`organize-camera-uploads` - Moves the contents of a Dropbox "Camera Uploads"
-			    directory into subdirectories based on year and
-                            month.
+`organize-camera-uploads` - Moves the contents of a Dropbox "Camera Uploads" directory into subdirectories based on year and month.
 
 ### php utilities
 
 `check-php-files` - Runs a lint checker on all .php files, recursively.
 
+`find-dos-line-endings` - Seeks out files with DOS (CRLF) line-endings.
+
 `generate-php-password` - Runs diceware and then generates a hashed password as a result.
 
 `php-unserialize` - Simple script to unserialize and dump serialized data from PHP.
 
-`find-dos-line-endings` - Seeks out files with DOS (CRLF) line-endings.
+### other utilities
 
-### wsl utilities
+`generate-pin` - Generates random PINs.
 
-`cleanup-ssh` - Cleans out SSH agent sockets and directories.  tmpreaper doesn't touch them.
+`mbox-splitter` - Splits an mbox file into individual files.
 
-`start-all` - Starts services and runs basic cleanup.
-
-`stop-all` - Stops services started by `start-all`.
+`show-disk-write-buffer` - Shows global disk write and dirty buffers.

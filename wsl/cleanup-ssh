@@ -1,8 +1,0 @@
-#!/bin/sh
-#
-# Cleans up old SSH agent sockets, because tmpreaper won't touch them.
-#
-
-echo cleaning up old SSH agent sockets
-find /tmp -type s -path '/tmp/ssh-*' -name 'agent.*' -mtime +14 -exec rm -v '{}' ';'
-find /tmp -maxdepth 1 -type d -empty -name 'ssh-*' -exec rmdir '{}' ';'
