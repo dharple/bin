@@ -30,6 +30,8 @@ Random, possibly useful scripts.
 
 `php-unserialize` - Simple script to unserialize and dump serialized data from PHP.
 
+`spellcheck-php-files` - Simple script to run aspell against PHP files.
+
 ### other utilities
 
 `generate-pin` - Generates random PINs.
