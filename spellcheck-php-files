@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# This is a recursive PHP spell checker.  It's used to ensure that there are no
+# spelling mistakes in a code tree.
+#
+
+if [ -z "$1" ] ; then
+	FILELIST=$(find . -name '*.php' -not -path '*/vendor/*' -not -path '*/var/cache/*')
+else
+	FILELIST=$*
+fi
+
+FILELISTCOUNT=$(echo "$FILELIST" | wc -w)
+
+echo "Checking $FILELISTCOUNT files"
+for i in $FILELIST ; do
+	echo "$i"
+	aspell --mode=ccpp -c "$i"
+done
