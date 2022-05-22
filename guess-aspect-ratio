@@ -2,7 +2,7 @@
 <?php
 
 if ($argc < 2) {
-	fprintf(STDERR, "Please specify one or more files to review\n");
+    fprintf(STDERR, "Please specify one or more files to review\n");
     exit(1);
 }
 

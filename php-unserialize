@@ -3,3 +3,5 @@
 
 $data = file_get_contents('php://stdin');
 print_r(unserialize($data));
+
+// vim:ai:cin:et:ts=4:sw=4:fo+=or

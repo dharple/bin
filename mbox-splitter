@@ -3,7 +3,7 @@
 
 function usage()
 {
-    fprintf(STDERR, "Usage:\n\t%s FILE\n", $argv[0]);
+    fprintf(STDERR, "Usage:\n\t%s FILE\n", $GLOBALS['argv'][0]);
     exit(-1);
 }
 
@@ -11,7 +11,7 @@ function writeOutput($file, $output)
 {
     static $counter = 0;
 
-    $target = sprintf("%s.%04d", $file, ++$counter);
+    $target = sprintf('%s.%04d', $file, ++$counter);
     if (file_exists($target)) {
         fprintf(STDERR, "cannot create %s: file already exists\n", $target);
     }
