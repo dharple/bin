@@ -3,7 +3,7 @@
 # Splits files in the format "Y-m-d*" into Y/m/ subdirectories.
 #
 
-for PREFIX in $(find -maxdepth 1 -mindepth 1 -type f | cut -f 1-2 -d - | sort | uniq) ; do
+for PREFIX in $(find . -maxdepth 1 -mindepth 1 -type f | cut -f 1-2 -d - | sort | uniq) ; do
 	DIR=$(echo "$PREFIX" | sed -e's@-@/@')
 	echo ----------------------------------------------------
 	mkdir -p "$DIR"
