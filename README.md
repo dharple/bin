@@ -34,8 +34,12 @@ Random, possibly useful scripts.
 
 ### other utilities
 
+`drop-caches` - Drops caches in Linux.
+
 `generate-pin` - Generates random PINs.
 
 `mbox-splitter` - Splits an mbox file into individual files.
 
 `show-disk-write-buffer` - Shows global disk write and dirty buffers.
+
+`stamp` - Writes out a stamp for a file, in the format `YYYYMMDD-HHSS`.
