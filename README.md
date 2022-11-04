@@ -34,6 +34,8 @@ Random, possibly useful scripts.
 
 ### other utilities
 
+`cleanup-snap-cache` - Cleans up old files in the snap cache on Ubuntu and other systems that use snap.
+
 `drop-caches` - Drops caches in Linux.
 
 `generate-pin` - Generates random PINs.
