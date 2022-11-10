@@ -19,6 +19,7 @@ $commonRatios = [
     [ 'height' => '3',  'width' => '2'  ],
     [ 'height' => '5',  'width' => '4'  ],
     [ 'height' => '11', 'width' => '8'  ],
+    [ 'height' => '11', 'width' => '9'  ],
     [ 'height' => '14', 'width' => '9'  ],
     [ 'height' => '16', 'width' => '5'  ],
     [ 'height' => '19', 'width' => '16' ],
