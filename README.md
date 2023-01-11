@@ -38,7 +38,7 @@ Random, possibly useful scripts.
 
 `drop-caches` - Drops caches in Linux.
 
-`generate-pin` - Generates random PINs.
+`generate-pin [LENGTH]` - Generates random PINs.  Defaults to 4 numbers.  Uses `apg`.
 
 `mbox-splitter` - Splits an mbox file into individual files.
 
