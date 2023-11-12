@@ -3,6 +3,15 @@
 # Splits files in the format "Y-m-d*" into Y/m/ subdirectories.
 #
 
+ls
+
+echo "Organize this directory?  Type 'yes' to continue."
+read CHECK
+
+if [ "$CHECK" != "yes" ] ; then
+	exit 0
+fi
+
 for PREFIX in $(find . -maxdepth 1 -mindepth 1 -type f | cut -f 1-2 -d - | sort | uniq) ; do
 	DIR=$(echo "$PREFIX" | sed -e's@-@/@')
 	echo ----------------------------------------------------
