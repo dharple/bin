@@ -1,5 +1,9 @@
 Random, possibly useful scripts.
 
+### date time utilities
+
+`stamp` - Writes out a time and date stamp for a file, in the format `YYYYMMDD-HHSS`.
+
 ### git utilities
 
 `git cleanup` - Removes any branches that have been removed upstream; runs garbage collection.
@@ -20,6 +24,10 @@ Random, possibly useful scripts.
 
 `organize-camera-uploads` - Moves the contents of a Dropbox "Camera Uploads" directory into subdirectories based on year and month.
 
+### mailbox utilities
+
+`mbox-splitter` - Splits an mbox file into individual files.
+
 ### php utilities
 
 `check-php-files` - Runs a lint checker on all .php files, recursively.
@@ -32,16 +40,14 @@ Random, possibly useful scripts.
 
 `spellcheck-php-files` - Simple script to run aspell against PHP files.
 
-### other utilities
+### security utilities
+
+`generate-pin [LENGTH]` - Generates random PINs.  Defaults to 4 numbers.  Uses `apg`.
+
+### system utilities
 
 `cleanup-snap-cache` - Cleans up old files in the snap cache on Ubuntu and other systems that use snap.
 
 `drop-caches` - Drops caches in Linux.
 
-`generate-pin [LENGTH]` - Generates random PINs.  Defaults to 4 numbers.  Uses `apg`.
-
-`mbox-splitter` - Splits an mbox file into individual files.
-
 `show-disk-write-buffer` - Shows global disk write and dirty buffers.
-
-`stamp` - Writes out a stamp for a file, in the format `YYYYMMDD-HHSS`.
