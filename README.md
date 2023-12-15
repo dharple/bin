@@ -2,6 +2,8 @@ Random, possibly useful scripts.
 
 ### date time utilities
 
+`month` - Writes out a month stamp for a file, in the format `YYYYMM`.
+
 `stamp` - Writes out a time and date stamp for a file, in the format `YYYYMMDD-HHSS`.
 
 ### git utilities
