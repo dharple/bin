@@ -1,0 +1,65 @@
+#!/usr/bin/php
+<?php
+/**
+ * Draw a title surrounded by a line.
+ *
+ * Pass the title on the command line, with or without quotes.
+ *
+ * Pass WIDTH on the command line (or environment) to change it to a specific
+ * length.
+ *
+ * Pass ALIGN on the command line (or environment) to change the alignment to
+ * "left" or "right".
+ *
+ * e.g.
+ *
+ *     ALIGN=right draw-title Legal Stuff
+ *
+ * -------------------------------------------------------[ Legal Stuff ]-----
+ *
+ * (c) Doug Harple <dharple@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+$width = getenv('WIDTH') ?: 78;
+$align = getenv('ALIGN') ?: 'center';
+$alignWidth = 5;
+
+$arguments = $argv;
+array_shift($arguments);
+$name = trim(implode(' ', $arguments)) ?: 'nomen nescio';
+
+$fancyName = sprintf('[ %s ]', $name);
+$fancyNameLength = strlen($fancyName);
+
+if ($fancyNameLength >= $width) {
+    printf("%s\n", $fancyName);
+} else {
+    switch ($align) {
+        case 'left':
+            $lineLengthLeft = $alignWidth;
+            $lineLengthRight = $width - $fancyNameLength - $lineLengthLeft;
+            break;
+
+        case 'right':
+            $lineLengthRight = $alignWidth;
+            $lineLengthLeft = $width - $fancyNameLength - $lineLengthRight;
+            break;
+
+        default:
+            $lineLengthLeft = ceil(($width - $fancyNameLength) / 2);
+            $lineLengthRight = $width - $fancyNameLength - $lineLengthLeft;
+            break;
+    }
+
+    printf(
+        "%s%s%s\n",
+        str_repeat('-', $lineLengthLeft),
+        $fancyName,
+        str_repeat('-', $lineLengthRight)
+    );
+}
+
+// vim:ai:cin:et:ts=4:sw=4:fo+=or

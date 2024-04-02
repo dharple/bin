@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Draw a line.
+ *
+ * Pass WIDTH on the environment to change it to a specific length.
+ *
+ * ---------------------------------------------------------------------------
+ *
+ * (c) Doug Harple <dharple@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+$width = getenv('WIDTH') ?: 78;
+
+printf("%s\n", str_repeat('-', $width));
+
+// vim:ai:cin:et:ts=4:sw=4:fo+=or

@@ -6,6 +6,12 @@ Random, possibly useful scripts.
 
 `stamp` - Writes out a time and date stamp for a file, in the format `YYYYMMDD-HHSS`.
 
+### display utilties
+
+`draw-line` - Draw a line of `-`.
+
+`draw-title` - Draw a title in the format `---[ title ]---`.
+
 ### git utilities
 
 `git cleanup` - Removes any branches that have been removed upstream; runs garbage collection.
