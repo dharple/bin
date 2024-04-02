@@ -1,7 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash -e
 #
 # This is a recursive PHP lint checker.  It's used to ensure that there are no
 # syntax errors in a code tree.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 #
 
 ERROR=$(php -r 'echo E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_RECOVERABLE_ERROR;')
@@ -14,4 +21,3 @@ echo "Checking $FILELISTCOUNT files"
 for i in $FILELIST ; do
 	php -d display_errors=on -d error_reporting="$ERROR" -l "$i" > /dev/null
 done
-

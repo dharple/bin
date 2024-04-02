@@ -1,8 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash -e
 #
 # Looks for a DOS CRLF in code.
 #
 # There's at least one hit in the composer package squizlabs/php_codesniffer.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 #
 
 FILELIST=$(find . -type f -regextype "posix-extended" -regex '.*[.](c|h|js|php|sh)$' -not -path "*/node_modules/*" -not -path '*/vendor/*' -not -path '*/var/cache/*')

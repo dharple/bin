@@ -1,7 +1,14 @@
-#!/bin/sh
+#!/bin/sh -e
 #
 # Combine `git pull` and `git status` into a single command, primarily for use
 # with `gitr`.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 #
 
 git pull

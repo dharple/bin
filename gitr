@@ -1,8 +1,15 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -e
 #
 # Recursive git (and composer).
 #
 # Run `gitr status` or `gitr composer info` for a non-destructive preview.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 #
 
 function banner()
@@ -12,8 +19,6 @@ function banner()
 	echo -------------------------------------
 	echo
 }
-
-set -e
 
 if [ -z "$VERBOSE" ] ; then
 	VERBOSE=0

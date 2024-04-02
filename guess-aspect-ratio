@@ -1,5 +1,16 @@
 #!/usr/bin/env php
 <?php
+/**
+ * Attempts to guess (brute force) the aspect ratio of an image, based on a
+ * common set of aspect ratios.
+ *
+ * -------------------------------------------------------[ Legal Stuff ]-----
+ *
+ * (c) Doug Harple <dharple@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 if ($argc < 2) {
     fprintf(STDERR, "Please specify one or more files to review\n");

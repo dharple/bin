@@ -1,7 +1,14 @@
-#!/usr/bin/bash -e
+#!/usr/bin/env bash -e
 #
 # Pulls backgrounds from /usr/share/backgrounds and writes them to the current
 # directory, separated by package hierarchy.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 #
 
 DPKG=$(command -v dpkg)

@@ -1,3 +1,13 @@
-#!/bin/sh
+#!/bin/sh -e
+#
+# Dumps the date and time in the format YYYYMMDD-HHSS.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
 
 date +"%Y%m%d-%H%M"

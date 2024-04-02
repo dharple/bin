@@ -1,7 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash -e
 #
 # This is a recursive PHP spell checker.  It's used to ensure that there are no
 # spelling mistakes in a code tree.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 #
 
 if [ -z "$1" ] ; then

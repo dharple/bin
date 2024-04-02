@@ -1,3 +1,13 @@
 #!/bin/sh -e
+#
+# Dump information about writeback caches in Linux.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
 
 grep -E "^(Dirty|Writeback):" /proc/meminfo

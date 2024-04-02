@@ -1,7 +1,14 @@
-#!/bin/bash -ex
+#!/usr/bin/env bash -ex
 #
 # Find any file in /var/lib/snapd/cache with only one link (e.g. it isn't
 # hardlinked to /var/lib/snapd/snaps) and an mtime older than a week ago.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 #
 
 find /var/lib/snapd/cache/ -type f -links 1 -mtime +7 -exec rm -v '{}' ';'
