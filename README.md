@@ -18,6 +18,8 @@ Random, possibly useful scripts.
 
 `git diff-list` - Shortcut to just show a list of files added, copied, modified, or removed.
 
+`git done` - Joke script, so you can run `gitr done`.
+
 `git post-push` - Runs garbage collection, permission fix script, and remote garbage collection if the remote repo is local.
 
 `gitr` - Run git recursively across subdirectories.  Ignores `vendor/` directories.
