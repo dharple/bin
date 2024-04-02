@@ -1,0 +1,17 @@
+#!/bin/sh -e
+#
+# For Alex.
+#
+# --------------------------------------------------------[ Legal Stuff ]-----
+#
+# (c) Doug Harple <dharple@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+if [ -x /usr/games/fortune ] ; then
+	/usr/games/fortune
+else
+	echo "Will you stop that?!"
+exit
