@@ -14,4 +14,4 @@ if [ -x /usr/games/fortune ] ; then
 	/usr/games/fortune
 else
 	echo "Will you stop that?!"
-exit
+fi
