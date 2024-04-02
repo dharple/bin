@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
 #
 # Recursive git (and composer).
 #
@@ -19,6 +19,8 @@ function banner()
 	echo -------------------------------------
 	echo
 }
+
+set -e
 
 if [ -z "$VERBOSE" ] ; then
 	VERBOSE=0
