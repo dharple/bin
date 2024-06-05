@@ -42,7 +42,7 @@ Random, possibly useful scripts.
 
 `check-php-files` - Runs a lint checker on all .php files, recursively.
 
-`find-dos-line-endings` - Seeks out files with DOS (CRLF) line-endings.
+`find-dos-line-endings` - Seeks out files with DOS (CRLF) line-endings.  Only reviews files with specific extensions.
 
 `generate-php-password` - Runs diceware and then generates a hashed password as a result.
 
