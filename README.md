@@ -34,6 +34,8 @@ Random, possibly useful scripts.
 
 `organize-camera-uploads` - Moves the contents of a Dropbox "Camera Uploads" directory into subdirectories based on year and month.
 
+`remove-gps-data` - Use `exiftool` to remove GPS data from an image.
+
 ### mailbox utilities
 
 `mbox-splitter` - Splits an mbox file into individual files.
