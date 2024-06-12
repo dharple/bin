@@ -12,7 +12,7 @@
 # file that was distributed with this source code.
 #
 
-REGEX='.*[.](c|css|h|html|inc|js|md|php3?|sass|sh|tpl|txt)$'
+REGEX='.*[.](c|css|h|html?|inc|java|js|md|php3?|pl|sass|sh|sql|tpl|txt)$'
 
 find . -type f -regextype "posix-extended" -regex "$REGEX" -not -path "*/node_modules/*" -not -path '*/vendor/*' -not -path '*/var/cache/*' | while read -r FILENAME ; do
 	RES=$(hexdump "$FILENAME" | cut -f 2- -d " " | grep -cE "( 0a0d )|(0a 0d)")
