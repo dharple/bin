@@ -38,7 +38,7 @@ Random, possibly useful scripts.
 
 ### mailbox utilities
 
-`mbox-splitter` - Splits an mbox file into individual files.
+`split-mbox` - Splits an mbox file into individual files.
 
 ### php utilities
 
