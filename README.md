@@ -56,6 +56,8 @@ Random, possibly useful scripts.
 
 `generate-pin [LENGTH]` - Generates random PINs.  Defaults to 4 numbers.  Uses `apg`.
 
+`has-hidden-utf8` - Returns a shell TRUE and a message if it finds hidden UTF-8 characters in a file.
+
 ### system utilities
 
 `cleanup-snap-cache` - Cleans up old files in the snap cache on Ubuntu and other systems that use snap.

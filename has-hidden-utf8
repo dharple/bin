@@ -1,0 +1,148 @@
+#!/usr/bin/env php
+<?php
+//
+// Looks for hidden UTF-8 characters.
+//
+
+function usage()
+{
+    fprintf(STDERR, "Usage:\n\t%s [FILE]\n", $GLOBALS['argv'][0]);
+    exit(-1);
+}
+
+if ($argc === 1 || ($argc > 1 && $argv[1] == '-')) {
+    $file = 'php://stdin';
+} else {
+    $file = $argv[1];
+    if (!file_exists($file)) {
+        usage();
+    }
+}
+
+//
+
+$ranges = [
+    //
+    // Ogham
+    //
+    // 0x1680-169F
+    //
+    // See: https://www.unicode.org/charts/PDF/U1680.pdf
+    // Also: https://pcre2project.github.io/pcre2/doc/pcre2pattern/
+    //
+
+    '1680',      // Space
+
+    //
+    // Mongolian
+    //
+    // 0x1800-18AF
+    //
+    // See: https://www.unicode.org/charts/PDF/U1800.pdf
+    // Also: https://pcre2project.github.io/pcre2/doc/pcre2pattern/
+    //
+
+    '180B-180F', // Format controls
+
+    //
+    // General Punctuation
+    //
+    // 0x2000-0x206F
+    //
+    // See: https://www.unicode.org/charts/PDF/U2000.pdf
+    // Also: https://pcre2project.github.io/pcre2/doc/pcre2pattern/
+    //
+
+    '2000-200A', // Spaces
+    '200B-200F', // Format characters
+    '2028-2029', // Separators
+    '202A-202E', // Format characters
+    '202F',      // Space
+    '205F',      // Space
+    '2060',      // Format character
+    '2061-2064', // Invisible operators
+    '2065',      // (not defined)
+    '2066-2069', // Format characters
+    '206A-206F', // Deprecated
+
+    //
+    // CJK Symbols and Punctuation
+    //
+    // 0x3000-303F
+    //
+    // See: https://www.unicode.org/charts/PDF/U3000.pdf
+    // Also: https://pcre2project.github.io/pcre2/doc/pcre2pattern/
+    //
+
+    '3000',      // Space
+
+    //
+    // Variation Selectors
+    //
+    // 0xFE00-0xFE0F
+    //
+    // See: https://www.unicode.org/charts/PDF/UFE00.pdf
+    // Also: https://arstechnica.com/security/2026/03/supply-chain-attack-using-invisible-code-hits-github-and-other-repositories/
+    //
+
+    'FE00-FE0F', // Variation Selectors
+
+    //
+    // Tag Characters
+    // AND
+    // Variation Characters Supplement
+    //
+    // 0xE0000-0xE01FF
+    //
+    // Note: this range is artificially widened, because attackers are using it
+    // in non-standard ways.
+    //
+    // See: https://www.unicode.org/charts/PDF/UE0000.pdf
+    // See: https://www.unicode.org/charts/PDF/UE0100.pdf
+    // Also: https://arstechnica.com/security/2026/03/supply-chain-attack-using-invisible-code-hits-github-and-other-repositories/
+    //
+
+    'E0000-E01FF', // Tag Characters, Variation Characters, and the code points in between
+];
+
+$characters = '';
+foreach ($ranges as $range) {
+    if (str_contains($range, '-')) {
+        [$left, $right] = explode('-', $range);
+        $characters .= sprintf('\N{U+%s}-\N{U+%s}', $left, $right);
+    } else {
+        $characters .= sprintf('\N{U+%s}', $range);
+    }
+}
+
+$expression = sprintf('/[%s]/u', $characters);
+
+//
+
+$blockSize = 65536;
+
+$fp = fopen($file, 'r');
+if ($fp === false) {
+    fprintf(STDERR, "could not read file '%s'\n", $file);
+    exit(-2);
+}
+
+$hiddenCount = 0;
+while ($contents = fgets($fp, $blockSize)) {
+    if (preg_match_all($expression, $contents, $matches)) {
+        $hiddenCount += count($matches[0]);
+        printf("%s: %s", $file, preg_replace($expression, '--HIDE--', $contents));
+    }
+}
+
+if ($hiddenCount === 0) {
+    exit(1);
+}
+
+fprintf(STDERR, "file '%s' has %d hidden UTF-8 characters\n", $file, $hiddenCount);
+
+fclose($fp);
+
+exit(0);
+
+// vim:ai:cin:et:ts=4:sw=4:fo+=or
