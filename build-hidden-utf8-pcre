@@ -1,0 +1,103 @@
+#!/usr/bin/env php
+<?php
+//
+// Builds a regex for matching hidden characters, and writes it to STDOUT.
+//
+
+$ranges = [
+    //
+    // Ogham
+    //
+    // 0x1680-169F
+    //
+    // See: https://www.unicode.org/charts/PDF/U1680.pdf
+    // Also: https://pcre2project.github.io/pcre2/doc/pcre2pattern/
+    //
+
+    '1680',      // Space
+
+    //
+    // Mongolian
+    //
+    // 0x1800-18AF
+    //
+    // See: https://www.unicode.org/charts/PDF/U1800.pdf
+    // Also: https://pcre2project.github.io/pcre2/doc/pcre2pattern/
+    //
+
+    '180B-180F', // Format controls
+
+    //
+    // General Punctuation
+    //
+    // 0x2000-0x206F
+    //
+    // See: https://www.unicode.org/charts/PDF/U2000.pdf
+    // Also: https://pcre2project.github.io/pcre2/doc/pcre2pattern/
+    //
+
+    '2000-200A', // Spaces
+    '200B-200F', // Format characters
+    '2028-2029', // Separators
+    '202A-202E', // Format characters
+    '202F',      // Space
+    '205F',      // Space
+    '2060',      // Format character
+    '2061-2064', // Invisible operators
+    '2065',      // (not defined)
+    '2066-2069', // Format characters
+    '206A-206F', // Deprecated
+
+    //
+    // CJK Symbols and Punctuation
+    //
+    // 0x3000-303F
+    //
+    // See: https://www.unicode.org/charts/PDF/U3000.pdf
+    // Also: https://pcre2project.github.io/pcre2/doc/pcre2pattern/
+    //
+
+    '3000',      // Space
+
+    //
+    // Variation Selectors
+    //
+    // 0xFE00-0xFE0F
+    //
+    // See: https://www.unicode.org/charts/PDF/UFE00.pdf
+    // Also: https://arstechnica.com/security/2026/03/supply-chain-attack-using-invisible-code-hits-github-and-other-repositories/
+    //
+
+    'FE00-FE0F', // Variation Selectors
+
+    //
+    // Tag Characters
+    // AND
+    // Variation Characters Supplement
+    //
+    // 0xE0000-0xE01FF
+    //
+    // Note: this range is artificially widened, because attackers are using it
+    // in non-standard ways.
+    //
+    // See: https://www.unicode.org/charts/PDF/UE0000.pdf
+    // See: https://www.unicode.org/charts/PDF/UE0100.pdf
+    // Also: https://arstechnica.com/security/2026/03/supply-chain-attack-using-invisible-code-hits-github-and-other-repositories/
+    //
+
+    'E0000-E01FF', // Tag Characters, Variation Characters, and the code points in between
+];
+
+$characters = '';
+foreach ($ranges as $range) {
+    if (str_contains($range, '-')) {
+        [$left, $right] = explode('-', $range);
+        $characters .= sprintf('\N{U+%s}-\N{U+%s}', $left, $right);
+    } else {
+        $characters .= sprintf('\N{U+%s}', $range);
+    }
+}
+
+printf('/[%s]/u', $characters);
+
+// vim:ai:cin:et:ts=4:sw=4:fo+=or

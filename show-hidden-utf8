@@ -35,14 +35,13 @@ $hiddenCount = 0;
 while ($contents = fgets($fp, $blockSize)) {
     if (preg_match_all($expression, $contents, $matches)) {
         $hiddenCount += count($matches[0]);
+        printf("%s: %s", $file, preg_replace($expression, '--HIDE--', $contents));
     }
 }
 
 if ($hiddenCount === 0) {
     exit(1);
 }
-
-fprintf(STDERR, "file '%s' has %d hidden UTF-8 characters\n", $file, $hiddenCount);
 
 fclose($fp);
 

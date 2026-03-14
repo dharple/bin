@@ -54,9 +54,13 @@ Random, possibly useful scripts.
 
 ### security utilities
 
+`build-hidden-utf8-pcre` - Builds a regular expression to find hidden UTF-8 characters.
+
 `generate-pin [LENGTH]` - Generates random PINs.  Defaults to 4 numbers.  Uses `apg`.
 
 `has-hidden-utf8` - Returns a shell TRUE and a message if it finds hidden UTF-8 characters in a file.
+
+`show-hidden-utf8` - Returns a shell TRUE and prints any matching lines, with the hidden UTF-8 characters converted to `--HIDE--`.
 
 ### system utilities
 
