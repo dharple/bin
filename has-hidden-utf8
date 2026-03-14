@@ -38,7 +38,7 @@ while ($contents = fgets($fp, $blockSize)) {
     }
 }
 
-if ($hiddenCount === 0) {
+if ($hiddenCount < 10) {
     exit(1);
 }
 
