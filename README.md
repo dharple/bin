@@ -6,7 +6,7 @@ Random, possibly useful scripts.
 
 `stamp` - Writes out a time and date stamp for a file, in the format `YYYYMMDD-HHSS`.
 
-### display utilties
+### display utilities
 
 `draw-line` - Draw a line of `-`.
 
