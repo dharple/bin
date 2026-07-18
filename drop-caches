@@ -13,6 +13,7 @@
 TARGET=/proc/sys/vm/drop_caches
 
 if [ -f "$TARGET" ] ; then
+	sync
 	echo 3 > "$TARGET"
 else
 	echo "Can't drop caches on this system"
