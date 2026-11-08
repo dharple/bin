@@ -32,6 +32,7 @@ Usage:
 	gitr <git-command>
 	gitr composer <composer-command>
 	gitr npm <npm-command>
+	gitr symfony <symfony-command>
 
 Flags:
 	-a	Work on all trees [ignore skip-gitr]
