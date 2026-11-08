@@ -12,6 +12,8 @@
 # file that was distributed with this source code.
 #
 
+set -e
+
 function banner()
 {
 	echo -------------------------------------
@@ -20,11 +22,76 @@ function banner()
 	echo
 }
 
-set -e
+# -------------------------------[ option parser ]------------------------------
 
-if [ -z "$VERBOSE" ] ; then
-	VERBOSE=0
+function usage()
+{
+	cat << DONE
+
+Usage:
+	gitr <git-command>
+	gitr composer <composer-command>
+	gitr npm <npm-command>
+
+Flags:
+	-a	Work on all trees [ignore skip-gitr]
+	-f	Force; ignore errors
+	-h	This message
+	-v	Be verbose
+
+DONE
+}
+
+if [ -n "$VERBOSE" ] ; then
+	echo "Setting VERBOSE in the environment is no longer supported; use -v"
 fi
+
+VERBOSE=0
+ALL=0
+
+while getopts ":afhv" opt; do
+	case "${opt}" in
+		a)
+			# all
+			ALL=1
+			;;
+
+		h)
+			# help
+			usage
+			exit 0
+			;;
+
+		f)
+			# force
+			set +e
+			;;
+
+
+		v)
+			# verbose
+			VERBOSE=1
+			;;
+
+		*)
+			# invalid command
+
+			echo "error: unknown argument" >&2
+			usage
+			exit 1
+			;;
+	esac
+done
+
+shift $((OPTIND -1))
+
+if [ -z "$1" ] ; then
+	echo "error: missing command" >&2
+	usage
+	exit 1
+fi
+
+# ---------------------------------[ main loop ]--------------------------------
 
 SKIPFILE=.git/skip-gitr
 
@@ -34,13 +101,12 @@ for GITDIR in $(find . -maxdepth 5 -type d -name .git -not -path '*/vendor/*' -n
 
 	cd "$BASE"/"$REPODIR" || exit
 
-
 	if [ "$1" = "skip" ] ; then
 		banner "$REPODIR"
 
 		case "$2" in
 			disable)
-				if [ -f $SKIPFILE ] ; then
+				if [ -f "$SKIPFILE" ] ; then
 					rm -f $SKIPFILE
 					echo "gitr skip is now disabled"
 				else
@@ -49,7 +115,7 @@ for GITDIR in $(find . -maxdepth 5 -type d -name .git -not -path '*/vendor/*' -n
 			;;
 
 			enable)
-				if [ ! -f $SKIPFILE ] ; then
+				if [ ! -f "$SKIPFILE" ] ; then
 					touch $SKIPFILE
 					echo "gitr skip is now enabled"
 				else
@@ -59,7 +125,7 @@ for GITDIR in $(find . -maxdepth 5 -type d -name .git -not -path '*/vendor/*' -n
 			;;
 
 			status)
-				if [ -f $SKIPFILE ] ; then
+				if [ -f "$SKIPFILE" ] ; then
 					if [ "$VERBOSE" -gt 0 ] ; then
 						echo "gitr skip is enabled in this repo"
 						echo -n "... "
@@ -83,7 +149,7 @@ for GITDIR in $(find . -maxdepth 5 -type d -name .git -not -path '*/vendor/*' -n
 		continue
 	fi
 
-	if [ -f $SKIPFILE ] ; then
+	if [ -f "$SKIPFILE" -a "$ALL" -eq 0 ] ; then
 		if [ "$VERBOSE" -gt 0 ] ; then
 			banner "$REPODIR"
 			echo "gitr disabled in this repo"
