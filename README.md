@@ -68,4 +68,4 @@ Random, possibly useful scripts.
 
 `drop-caches` - Drops caches in Linux.
 
-`show-disk-write-buffer` - Shows global disk write and dirty buffers.
+`show-disk-write-buffers` - Shows global disk write and dirty buffers.
